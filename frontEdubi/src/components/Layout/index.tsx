@@ -25,6 +25,7 @@ const Layout = ({ children }: Props): JSX.Element => {
   const refreshData = () => {
     setCallData(!callData);
   };
+
   return (
     <div className="flex flex-col justify-center h-[100vh] items-center space-y-8">
       <CustomContext.Provider value={{ todos, refreshData }}>

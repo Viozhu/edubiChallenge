@@ -37,14 +37,18 @@ const Create = (): JSX.Element => {
       Axios.post("/todos/create", {
         ...todo,
         created_at: `${todo.date}T00:00:00Z`,
+      }).then(() => {
+        refreshData();
+        setTodo({
+          task: "",
+          date: "",
+        });
+        setOpenSnack({
+          open: true,
+          message: "Todo created successfully",
+          severity: "success",
+        });
       });
-      setOpenSnack({
-        open: true,
-        message: "Todo created successfully",
-        severity: "success",
-      });
-
-      refreshData();
     } catch (error) {
       console.log(error);
       setOpenSnack({

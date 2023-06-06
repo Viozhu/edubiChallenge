@@ -11,7 +11,6 @@ import {
   TodoInterface,
 } from "../../interface/todoInterface";
 import { CustomSwitch, SnackBar } from "../../styleComponents";
-import { getTodos } from "../../helpers/getList";
 import { useCustomContext } from "../../Context";
 
 const List = (): JSX.Element => {
@@ -29,16 +28,17 @@ const List = (): JSX.Element => {
   const handleEdit = async (id: number) => {
     const { todo } = editTodo;
     try {
-      await Axios.put(`/todos/${id}`, todo);
-      getTodos();
-      setEditTodo({
-        todo: null,
-        enabled: true,
-      });
-      setOpenSnack({
-        open: true,
-        message: "Todo updated successfully",
-        severity: "success",
+      await Axios.put(`/todos/${id}`, todo).then(() => {
+        refreshData();
+        setEditTodo({
+          todo: null,
+          enabled: true,
+        });
+        setOpenSnack({
+          open: true,
+          message: "Todo updated successfully",
+          severity: "success",
+        });
       });
     } catch (error) {
       console.log(error);
@@ -52,16 +52,17 @@ const List = (): JSX.Element => {
 
   const handleDelete = async (id: number) => {
     try {
-      await Axios.delete(`/todos/${id}`);
-      refreshData();
-      setOpenSnack({
-        open: true,
-        message: "Todo deleted successfully",
-        severity: "success",
-      });
-      setEditTodo({
-        todo: null,
-        enabled: true,
+      await Axios.delete(`/todos/${id}`).then(() => {
+        refreshData();
+        setOpenSnack({
+          open: true,
+          message: "Todo deleted successfully",
+          severity: "success",
+        });
+        setEditTodo({
+          todo: null,
+          enabled: true,
+        });
       });
     } catch (error) {
       console.log(error);
@@ -74,16 +75,16 @@ const List = (): JSX.Element => {
   };
 
   return (
-    <div className="w-1/3 bg-slate-50 bg-opacity-30 flex flex-col items-center space-y-5 justify-center p-8 rounded ">
+    <div className="w-1/3 bg-slate-50 overflow-x-auto h-3/5 bg-opacity-30 flex flex-col items-center space-y-5 justify-center p-8 pt-0 rounded ">
       {todos.length !== 0 ? (
         todos.map((todo: TodoInterface) => {
           return (
             <div className="flex justify-between items-center p-2 w-full bg-white rounded bg-opacity-70">
-              <div>
+              <div className="w-[70%]">
                 <p className="text-sm">
                   {dayjs(todo.created_at).format("DD/MM/YYYY")}
                 </p>
-                <p className="text-lg">
+                <p className="text-lg truncate">
                   {editTodo.enabled || editTodo?.todo?.id !== todo.id ? (
                     todo.task
                   ) : (
@@ -104,10 +105,9 @@ const List = (): JSX.Element => {
               </div>
 
               <div>
-                {" "}
                 <Tooltip title={"Change Status"}>
                   <CustomSwitch
-                    defaultChecked={todo.completed}
+                    defaultChecked={todo.completed ? true : false}
                     onChange={() =>
                       setEditTodo({
                         ...editTodo,
