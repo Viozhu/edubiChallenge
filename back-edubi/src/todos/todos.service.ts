@@ -22,20 +22,9 @@ export class TodosService {
   }
 
   async create(createTodoDto: CreateTodoDto): Promise<Todo> {
-    // Validate the data
-    const createTodoDtoValidator = new CreateTodoDto();
-    createTodoDtoValidator.task = createTodoDto.task;
-
-    validate(createTodoDtoValidator).then((errors) => {
-      if (errors.length > 0) {
-        throw new BadRequestException(errors);
-      }
-    });
-
     const newTodo = this.TodoRepository.create({
       ...createTodoDto,
       completed: false,
-      created_at: new Date(),
     });
     return this.TodoRepository.save(newTodo);
   }
