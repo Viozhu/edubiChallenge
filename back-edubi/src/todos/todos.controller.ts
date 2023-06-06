@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { Todo } from 'src/entities/todos.entity';
+import { Todo } from 'src/todos/entities/todos.entity';
 import { TodosService } from './todos.service';
 import { CreateTodoDto, UpdateTodoDto } from './dto/todo.dto';
 
