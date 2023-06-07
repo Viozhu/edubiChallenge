@@ -3,7 +3,7 @@ import { TextField, Button } from "@mui/material";
 import Axios from "../../helpers/Axios";
 import { SnackBar } from "../../styleComponents";
 import { useCustomContext } from "../../Context";
-
+import * as styles from "./styles";
 const Create = (): JSX.Element => {
   const { refreshData } = useCustomContext();
   const [todo, setTodo] = useState({
@@ -60,14 +60,13 @@ const Create = (): JSX.Element => {
   };
 
   return (
-    <div className="w-1/3 bg-slate-50 bg-opacity-30 flex flex-col items-center space-y-5 justify-center p-8 rounded ">
-      <div className="text-3xl underline decoration-wavy decoration-green-800">
-        Create your to Do!
-      </div>
-      <div className="flex jutify-center items-center  space-x-2">
+    <div className={styles.Container}>
+      <div className={styles.TextContainer}>Create your to Do!</div>
+      <div className={styles.FormContainer}>
         <TextField
           label="Task"
           name="task"
+          value={todo.task}
           sx={{ backgroundColor: "white", borderRadius: "5px", opacity: "0.8" }}
           variant="outlined"
           onChange={(e) => handleChange(e)}
@@ -75,6 +74,7 @@ const Create = (): JSX.Element => {
         <TextField
           type="date"
           name="date"
+          value={todo.date}
           sx={{ backgroundColor: "white", borderRadius: "5px", opacity: "0.8" }}
           variant="outlined"
           onChange={(e) => handleChange(e)}

@@ -1,14 +1,9 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Todo } from './entities/todos.entity';
 
 import { CreateTodoDto, UpdateTodoDto } from './dto/todo.dto';
-import { validate } from 'class-validator';
 
 @Injectable()
 export class TodosService {

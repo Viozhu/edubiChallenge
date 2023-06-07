@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import CustomContext from "../../Context";
 import { getTodos } from "../../helpers/getList";
 import { TodoInterface } from "../../interface/todoInterface";
+import * as styles from "./styles";
 
 type Props = {
   children: React.ReactNode;
@@ -27,7 +28,7 @@ const Layout = ({ children }: Props): JSX.Element => {
   };
 
   return (
-    <div className="flex flex-col justify-center h-[100vh] items-center space-y-8">
+    <div className={styles.Container}>
       <CustomContext.Provider value={{ todos, refreshData }}>
         {children}
       </CustomContext.Provider>

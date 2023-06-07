@@ -12,6 +12,7 @@ import {
 } from "../../interface/todoInterface";
 import { CustomSwitch, SnackBar } from "../../styleComponents";
 import { useCustomContext } from "../../Context";
+import * as styles from "./styles";
 
 const List = (): JSX.Element => {
   const { todos, refreshData } = useCustomContext();
@@ -27,6 +28,13 @@ const List = (): JSX.Element => {
 
   const handleEdit = async (id: number) => {
     const { todo } = editTodo;
+    if (!todo?.task || !todo?.created_at)
+      return setOpenSnack({
+        open: true,
+        message: "Please fill all the fields",
+        severity: "error",
+      });
+
     try {
       await Axios.put(`/todos/${id}`, todo).then(() => {
         refreshData();
@@ -75,22 +83,22 @@ const List = (): JSX.Element => {
   };
 
   return (
-    <div className="w-1/3 bg-slate-50 overflow-x-auto h-3/5 bg-opacity-30 flex flex-col items-center space-y-5 justify-center p-8 pt-0 rounded ">
+    <div className={styles.Container}>
       {todos.length !== 0 ? (
         todos.map((todo: TodoInterface) => {
           return (
-            <div className="flex justify-between items-center p-2 w-full bg-white rounded bg-opacity-70">
-              <div className="w-[70%]">
+            <div className={styles.Chip}>
+              <div className="w-2/3">
                 <p className="text-sm">
                   {dayjs(todo.created_at).format("DD/MM/YYYY")}
                 </p>
-                <p className="text-lg truncate">
+                <p className="text-lg  truncate">
                   {editTodo.enabled || editTodo?.todo?.id !== todo.id ? (
                     todo.task
                   ) : (
                     <TextField
-                      label={todo.task}
                       name="task"
+                      value={editTodo?.todo?.task}
                       size="small"
                       variant="outlined"
                       onChange={(e) =>
@@ -170,7 +178,7 @@ const List = (): JSX.Element => {
           );
         })
       ) : (
-        <div className="flex justify-center items-center p-2 w-full bg-white rounded bg-opacity-70">
+        <div className={styles.EmptyChip}>
           <p className="text-lg">No todos yet</p>
         </div>
       )}
