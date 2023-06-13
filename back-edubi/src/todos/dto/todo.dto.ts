@@ -1,7 +1,6 @@
 import { IsBoolean, IsString, IsOptional, IsDateString } from 'class-validator';
-import { Todo } from 'src/todos/entities/todos.entity';
 
-export class CreateTodoDto extends Todo {
+export class CreateTodoDto {
   @IsString()
   task: string;
 
@@ -9,7 +8,7 @@ export class CreateTodoDto extends Todo {
   created_at: Date;
 }
 
-export class UpdateTodoDto extends Todo {
+export class UpdateTodoDto {
   @IsOptional()
   @IsString()
   task: string;
