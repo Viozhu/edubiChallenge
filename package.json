@@ -1,0 +1,23 @@
+{
+  "name": "edubichallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:server": "cd back-edubi && pnpm start:dev",
+    "start:client": "cd frontEdubi && pnpm dev",
+    "start:all": "concurrently \"npm run start:server\" \"npm run start:client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viozhu/edubiChallenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Viozhu/edubiChallenge/issues"
+  },
+  "homepage": "https://github.com/Viozhu/edubiChallenge#readme"
+}
