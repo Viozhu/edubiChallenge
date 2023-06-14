@@ -52,7 +52,7 @@ const List = (): JSX.Element => {
       console.log(error);
       setOpenSnack({
         open: true,
-        message: "Todo updated failed",
+        message: `Todo updated failed - ${error}`,
         severity: "error",
       });
     }

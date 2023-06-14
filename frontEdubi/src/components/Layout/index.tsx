@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import CustomContext from "../../Context";
 import { getTodos } from "../../helpers/getList";
@@ -10,8 +10,8 @@ type Props = {
 };
 
 const Layout = ({ children }: Props): JSX.Element => {
-  const [todos, setTodos] = React.useState([]);
-  const [callData, setCallData] = React.useState(false);
+  const [todos, setTodos] = useState([]);
+  const [callData, setCallData] = useState(false);
 
   useEffect(() => {
     getTodos().then((res) =>
